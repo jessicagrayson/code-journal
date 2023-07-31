@@ -1,5 +1,5 @@
 .page-header {
-  max-width: 55%;
+  max-width: 100%;
   padding: 20px;
   font-size: 28px;
   font-weight: lighter;
@@ -8,4 +8,17 @@
   font-family: sans-serif;
   background-color: rebeccapurple;
   color: white;
+}
+
+.placeholder-image {
+  width: 250px;
+  height: 250px;
+}
+
+.journal-entry {
+  display: flex;
+}
+
+.column-half {
+  padding-top: 15px;
 }
