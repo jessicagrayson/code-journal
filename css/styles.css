@@ -1,0 +1,11 @@
+.page-header {
+  max-width: 55%;
+  padding: 20px;
+  font-size: 28px;
+  font-weight: lighter;
+
+  /* Placeholder font fam: */
+  font-family: sans-serif;
+  background-color: rebeccapurple;
+  color: white;
+}
