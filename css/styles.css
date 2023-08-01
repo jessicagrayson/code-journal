@@ -1,24 +1,25 @@
-.page-header {
-  max-width: 100%;
-  padding: 20px;
-  font-size: 28px;
-  font-weight: lighter;
-
-  /* Placeholder font fam: */
-  font-family: sans-serif;
-  background-color: rebeccapurple;
-  color: white;
+body {
+  background-color: #f0f0f0;
 }
 
-.placeholder-image {
-  width: 250px;
-  height: 250px;
+.header {
+  background-color: #562b81;
+  color: #fff;
+  width: 100%;
+  height: 100%;
 }
 
-.journal-entry {
+img {
+  width: 100%;
+}
+
+.center-row {
   display: flex;
+  flex-direction: row;
+  background-color: cornflowerblue;
 }
 
-.column-half {
-  padding-top: 15px;
+.form-input {
+  display: flex;
+  flex-direction: column;
 }
