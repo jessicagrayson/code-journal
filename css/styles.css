@@ -1,21 +1,51 @@
 body {
   background-color: #f0f0f0;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
 }
 
-.header {
+.container {
+  padding-top: 4rem;
+}
+
+.page-header {
+  /* Header background */
   background-color: #562b81;
   color: #fff;
   width: 100%;
   height: 100%;
+  font-size: 18px;
+}
+
+.page-heading {
+  /* Header text */
+  padding-left: 13rem;
+}
+
+h1,
+h2 {
+  font-family: 'Proza Libre', sans-serif;
+}
+
+h2 {
+  font-weight: 100;
+}
+
+h1 {
+  font-weight: 600;
 }
 
 img {
   width: 100%;
+  margin-bottom: 0.6rem;
+  border-radius: 0.4rem;
+  padding-left: 0%;
 }
 
 .center-row {
   display: flex;
   flex-direction: row;
+  font-size: 1.125rem;
 }
 
 .form-input {
@@ -25,25 +55,31 @@ img {
 
 .notes-field {
   width: 100%;
+  border-radius: 0.2rem;
+  margin-top: 0.5rem;
 
   /* Confirm if okay to hard code notes field height */
   height: 9.375rem;
 }
 
 .save-button {
+  border-radius: 0.4rem;
   background-color: #562b81;
   color: #fff;
-  font-size: 22px;
+  font-size: 1.375rem;
+  font-weight: 500;
+  text-transform: uppercase;
 
   /* Adjust these sizes later: */
   height: 3.125rem;
-  width: 9.375rem;
+  width: 7rem;
 }
 
 .notes-row {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.125rem;
 }
 
 .footer-row {
@@ -58,7 +94,21 @@ img {
   align-items: flex-end;
 }
 
-/* .input-column {
+.entry-row {
+  font-size: 1rem;
+  padding-left: 1%;
+}
+
+.header-column {
   display: flex;
-  align-items: flex-start;
-} */
+
+  /* Adjust below: */
+  justify-content: left;
+}
+
+.text-input {
+  border-radius: 0.2rem;
+  width: 15rem;
+  margin-bottom: 1rem;
+  margin-top: 0.3rem;
+}
