@@ -43,19 +43,25 @@
       </div>
       <div class="row center-row">
         <div class="column-half">
-          <img src="images/placeholder-image-square.jpg" />
+          <img id="user-img" src="images/placeholder-image-square.jpg" />
         </div>
         <div class="column-half input-column">
           <div data-view="entry-form">
             <form class="form-input">
               <label for="title">Title</label>
-              <input class="text-input" type="text" id="title" name="title" />
+              <input
+                class="text-input"
+                type="text"
+                id="title"
+                name="title"
+                required />
               <label for="photo-url">Photo Url</label>
               <input
                 class="text-input"
                 type="text"
                 id="photo-url"
-                name="photo-url" />
+                name="photo-url"
+                required />
             </form>
           </div>
           <div data-view="entries" class="hidden"></div>
@@ -65,7 +71,7 @@
       <div class="row notes-row">
         <div class="column-full">
           <label class="text-input-label" for="notes-field">Notes</label>
-          <textarea class="notes-field" id="notes-field">Hello world</textarea>
+          <textarea class="notes-field" id="notes-field" required></textarea>
         </div>
       </div>
       <div class="row footer-row">
