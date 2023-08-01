@@ -31,7 +31,7 @@
         <div class="column-half">
           <img src="images/placeholder-image-square.jpg" />
         </div>
-        <div class="column-half">
+        <div class="column-half input-column">
           <div data-view="entry-form">
             <form class="form-input">
               <label for="title">Title</label>
@@ -43,8 +43,20 @@
           <div data-view="entries" class="hidden"></div>
         </div>
       </div>
-      <div class="row">
-        <textarea>Hello world</textarea>
+
+      <div class="row notes-row">
+        <div class="column-full">
+          <label for="notes-field">Notes</label>
+          <textarea class="notes-field" id="notes-field">Hello world</textarea>
+        </div>
+      </div>
+      <div class="row footer-row">
+        <div class="column-half placeholder-column">
+          <p>Placeholder text</p>
+        </div>
+        <div class="column-half button-column">
+          <button class="save-button">Save</button>
+        </div>
       </div>
     </main>
     <script src="js/data.js"></script>

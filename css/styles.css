@@ -16,10 +16,49 @@ img {
 .center-row {
   display: flex;
   flex-direction: row;
-  background-color: cornflowerblue;
 }
 
 .form-input {
   display: flex;
   flex-direction: column;
 }
+
+.notes-field {
+  width: 100%;
+
+  /* Confirm if okay to hard code notes field height */
+  height: 9.375rem;
+}
+
+.save-button {
+  background-color: #562b81;
+  color: #fff;
+  font-size: 22px;
+
+  /* Adjust these sizes later: */
+  height: 3.125rem;
+  width: 9.375rem;
+}
+
+.notes-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.button-column {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+/* .input-column {
+  display: flex;
+  align-items: flex-start;
+} */
