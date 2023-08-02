@@ -1,5 +1,6 @@
 body {
   background-color: #f0f0f0;
+  /* stylelint-disable-next-line string-quotes */
   font-family: 'Open Sans', sans-serif;
   font-weight: 500;
 }
@@ -16,6 +17,7 @@ header {
 
 h1,
 h2 {
+  /* stylelint-disable-next-line string-quotes */
   font-family: 'Proza Libre', sans-serif;
 }
 
@@ -92,3 +94,5 @@ img {
   margin-bottom: 1rem;
   margin-top: 0.3rem;
 }
+
+/* Data entries styles: */
