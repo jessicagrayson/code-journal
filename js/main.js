@@ -42,10 +42,3 @@ function submitInfo(event) {
 
 // submit event listener
 $entryForm.addEventListener('submit', submitInfo);
-
-function test() {
-  const test = 'Some string';
-  localStorage.setItem('random', test);
-}
-
-test();
