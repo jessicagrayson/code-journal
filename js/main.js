@@ -4,7 +4,7 @@ const $currentTitle = document.querySelector('#title');
 const $entryForm = document.querySelector('.form-input');
 const $userNotes = document.querySelector('#notes-field');
 // DELETE BELOW, ONLY FOR TEST PURPOSES
-const $testAppendLoc = document.querySelector('.container');
+const $testAppendLoc = document.querySelector('.hidden');
 
 function setImgSrc(event) {
   $userCurrentImg.setAttribute('src', $currentPhotoUrl.value);
@@ -64,16 +64,16 @@ function renderEntry(entry) {
   // NOTE TO SELF: possible need for a div or container here, think $pokemonCard div?
   // creates image
   const $img = document.createElement('img');
-  $img.setAttribute('src', $currentPhotoUrl.value);
+  $img.setAttribute('src', entry.url);
   // NOTE TO SELF: may need to change image value
   // creates title
   const $title = document.createElement('h2');
   $title.className = 'entry-title';
-  $title.textContent = $currentTitle.value;
+  $title.textContent = entry.title;
   // creates notes section
   const $notes = document.createElement('p');
   $notes.className = 'entry-notes';
-  $notes.textContent = $userNotes.value;
+  $notes.textContent = entry.notes;
   // append DOM nodes
 
   $row.appendChild($column);
@@ -88,7 +88,7 @@ function renderEntry(entry) {
 }
 
 // event listener for DOMContentLoaded
-document.addEventListener('DOMContentLoaded', hersheyLoop);
+document.addEventListener('DOMContentLoaded', hersheyLoop(data.entries));
 
 // looping function
 
@@ -100,15 +100,3 @@ function hersheyLoop(array) {
     $testAppendLoc.appendChild($renderedEntry);
   }
 }
-
-// 1 Need to first create a function that will render our entry.
-// It should accept one entry as the parameter and inside of the function it should generate and
-// return a DOM tree for that entry. Have to manually create each node of the tree (row, column, ul, etc)
-// and append each of them to the prior one.
-// Should then return a DOM tree (should only require returning outermost div)
-
-// 2 Need to create an event listener which listens for the DOMContentLoaded event.
-// The callback function of this event should loop through the data.entries array, grab each entry and
-// then generate a DOM tree for each entry and then append that DOM tree to our ul.
-// In short, each entry should be rendered (done by using prior function in this loop) and they
-// should all be appended to the same ul element.
