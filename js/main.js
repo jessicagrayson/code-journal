@@ -3,8 +3,11 @@ const $currentPhotoUrl = document.querySelector('#photo-url');
 const $currentTitle = document.querySelector('#title');
 const $entryForm = document.querySelector('.form-input');
 const $userNotes = document.querySelector('#notes-field');
+const $parent = document.querySelector('main');
+
 // DELETE BELOW, ONLY FOR TEST PURPOSES
-const $testAppendLoc = document.querySelector('.hidden');
+// const $testAppendLoc = document.querySelector('.hidden');
+// eslint-disable-next-line no-unused-vars
 const $hiddenDiv = document.querySelector('.hidden-div');
 
 // function which sets image src:
@@ -83,19 +86,30 @@ function renderEntry(entry) {
 function hersheyLoop(array) {
   for (let i = 0; i < array.length; i++) {
     const $hershey = array[i];
+    // eslint-disable-next-line no-unused-vars
     const $renderedEntry = renderEntry($hershey);
     // correct append location up top later:
-    $testAppendLoc.appendChild($renderedEntry);
+    // $testAppendLoc.appendChild($renderedEntry);
   }
 }
 
 // listener for DOMContentLoaded event
 document.addEventListener('DOMContentLoaded', hersheyLoop(data.entries));
 
-// function to toggle "no entries" message
-function toggleNoEntries(event) {
-  $hiddenDiv.classList.remove('hidden');
-}
+// function to toggle "no entries" message, TURN THIS BACK ON LATER MAYBE
+// function toggleNoEntries(event) {
+//   $hiddenDiv.classList.remove('hidden');
+// }
 
 // test event listener for toggleNoEntries
-document.addEventListener('click', toggleNoEntries);
+// document.addEventListener('click', toggleNoEntries);
+
+// view swapping function
+
+function viewSwap(entries) {
+  for (const child of $parent.children) {
+    child.classList.toggle('hidden');
+  }
+}
+
+$parent.addEventListener('click', viewSwap);
