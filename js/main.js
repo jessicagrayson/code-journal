@@ -1,3 +1,4 @@
+// dom queries
 const $userCurrentImg = document.querySelector('#user-img');
 const $currentPhotoUrl = document.querySelector('#photo-url');
 const $currentTitle = document.querySelector('#title');
@@ -6,11 +7,7 @@ const $userNotes = document.querySelector('#notes-field');
 const $parent = document.querySelector('main');
 const $navLink = document.querySelector('.nav-link');
 const $entryLink = document.querySelector('.entry-link');
-
-// DELETE BELOW, ONLY FOR TEST PURPOSES
-// const $testAppendLoc = document.querySelector('.hidden');
-// eslint-disable-next-line no-unused-vars
-const $hiddenDiv = document.querySelector('.hidden-div');
+const $entriesList = document.querySelector('.entries-list');
 
 // function which sets image src:
 function setImgSrc(event) {
@@ -46,13 +43,11 @@ function submitInfo(event) {
   $userCurrentImg.src = 'images/placeholder-image-square.jpg';
   // resets form
   $entryForm.reset();
+
+  // swaps view
 }
 
-// submit event listener
-$entryForm.addEventListener('submit', submitInfo);
-
 // function to render entries
-// eslint-disable-next-line no-unused-vars
 function renderEntry(entry) {
   // creates elements of DOM tree:
   const $row = document.createElement('div');
@@ -65,6 +60,7 @@ function renderEntry(entry) {
   $listItem.className = 'user-entry';
   const $img = document.createElement('img');
   $img.setAttribute('src', entry.url);
+  $img.className = 'entry-img';
   const $title = document.createElement('h2');
   $title.className = 'entry-title';
   $title.textContent = entry.title;
@@ -73,6 +69,7 @@ function renderEntry(entry) {
   $notes.textContent = entry.notes;
 
   // append DOM nodes to build tree
+
   $row.appendChild($column);
   $column.appendChild($list);
   $list.appendChild($listItem);
@@ -81,33 +78,31 @@ function renderEntry(entry) {
   $listItem.appendChild($notes);
 
   // returns outermost div and all children
-  return $row;
+  // return $row;
+
+  // prepends DOM tree to list
+  $entriesList.appendChild($row);
 }
 
-// looping function
-function hersheyLoop(array) {
+// looping function for renderEntry function - iterates nextEntryId
+function arrayLoop(array) {
   for (let i = 0; i < array.length; i++) {
-    const $hershey = array[i];
+    const $entriesArray = array[i];
     // eslint-disable-next-line no-unused-vars
-    const $renderedEntry = renderEntry($hershey);
-    // correct append location up top later:
-    // $testAppendLoc.appendChild($renderedEntry);
+    const $renderedEntry = renderEntry($entriesArray);
   }
 }
 
+// submit event listener
+$entryForm.addEventListener('submit', submitInfo);
+
+// test
+// $entryForm.addEventListener('submit', renderEntry);
+
 // listener for DOMContentLoaded event
-document.addEventListener('DOMContentLoaded', hersheyLoop(data.entries));
-
-// function to toggle "no entries" message, TURN THIS BACK ON LATER MAYBE
-// function toggleNoEntries(event) {
-//   $hiddenDiv.classList.remove('hidden');
-// }
-
-// test event listener for toggleNoEntries
-// document.addEventListener('click', toggleNoEntries);
+document.addEventListener('DOMContentLoaded', arrayLoop(data.entries));
 
 // view swapping function
-
 function viewSwap(entries) {
   for (const child of $parent.children) {
     child.classList.toggle('hidden');
@@ -117,3 +112,8 @@ function viewSwap(entries) {
 // toggles view
 $navLink.addEventListener('click', viewSwap);
 $entryLink.addEventListener('click', viewSwap);
+
+// need to query the no entries message and somehow remove + add hidden styling
+// function toggleNoEntrires(event){
+//   $noEntryMessage.classList.remove('hidden')
+// }

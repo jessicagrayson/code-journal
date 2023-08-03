@@ -134,3 +134,9 @@ img {
   margin-top: 2rem;
   text-align: center;
 }
+
+.entry-img {
+  /* NEED TO ADJUST THESE DIMENSIONS */
+  height: 40%;
+  width: 40%;
+}
