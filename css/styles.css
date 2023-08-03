@@ -15,6 +15,10 @@ header {
   font-size: 1.125rem;
 }
 
+.header-column {
+  display: flex;
+}
+
 h1,
 h2 {
   /* stylelint-disable-next-line string-quotes */
@@ -96,3 +100,23 @@ img {
 }
 
 /* Data entries styles: */
+
+.no-entry-styles {
+  display: flex;
+
+  /* may need to be adjusted when new button added */
+  justify-content: space-around;
+}
+
+.no-entry-message {
+  /* padding may need to be adjusted later */
+  padding-top: 10%;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.nav-link {
+  /* adjust position later */
+  color: #fff;
+  text-decoration: none;
+}

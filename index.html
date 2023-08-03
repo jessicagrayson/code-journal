@@ -31,6 +31,8 @@
         <div class="row page-header">
           <div class="column-full header-column">
             <h2 class="page-heading">Code Journal</h2>
+            <!-- the tag below will be used to show entries when clicked -->
+            <a class="nav-link" href="#">Entries</a>
           </div>
         </div>
       </div>
@@ -38,7 +40,7 @@
     <main class="container">
       <div data-view="entry-form">
         <div class="row entry-row">
-          <h1>New Entry</h1>
+          <h1 class="new-entry-header">New Entry</h1>
         </div>
         <form class="form-input" id="entry-form-data">
           <div class="row center-row">
@@ -87,8 +89,11 @@
         </div>
       </div>
       <!-- Start entries section: -->
-      <div data-view="entries" class="hidden hidden-div">
-        <h4 class="no-entry-message">No entries have been recorded.</h4>
+      <div data-view="entries" class="hidden">
+        <div class="no-entry-styles">
+          <h1 class="entry-view-header">Entries</h1>
+          <p class="no-entry-message">No entries have been recorded.</p>
+        </div>
       </div>
     </main>
     <script src="js/data.js"></script>

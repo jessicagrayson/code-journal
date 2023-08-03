@@ -4,6 +4,7 @@ const $currentTitle = document.querySelector('#title');
 const $entryForm = document.querySelector('.form-input');
 const $userNotes = document.querySelector('#notes-field');
 const $parent = document.querySelector('main');
+const $navLink = document.querySelector('.nav-link');
 
 // DELETE BELOW, ONLY FOR TEST PURPOSES
 // const $testAppendLoc = document.querySelector('.hidden');
@@ -14,7 +15,7 @@ const $hiddenDiv = document.querySelector('.hidden-div');
 function setImgSrc(event) {
   $userCurrentImg.setAttribute('src', $currentPhotoUrl.value);
 }
-
+// listener that triggers setImgSrc function
 $currentPhotoUrl.addEventListener('input', setImgSrc);
 
 // submit function:
@@ -112,4 +113,5 @@ function viewSwap(entries) {
   }
 }
 
-$parent.addEventListener('click', viewSwap);
+// works if you click in the general area of the no entries message/where it would be if visible
+$navLink.addEventListener('click', viewSwap);
