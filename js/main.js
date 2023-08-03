@@ -5,6 +5,7 @@ const $entryForm = document.querySelector('.form-input');
 const $userNotes = document.querySelector('#notes-field');
 const $parent = document.querySelector('main');
 const $navLink = document.querySelector('.nav-link');
+const $entryLink = document.querySelector('.entry-link');
 
 // DELETE BELOW, ONLY FOR TEST PURPOSES
 // const $testAppendLoc = document.querySelector('.hidden');
@@ -113,5 +114,6 @@ function viewSwap(entries) {
   }
 }
 
-// works if you click in the general area of the no entries message/where it would be if visible
+// toggles view
 $navLink.addEventListener('click', viewSwap);
+$entryLink.addEventListener('click', viewSwap);
