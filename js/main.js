@@ -89,7 +89,7 @@ function arrayLoop(array) {
   }
 }
 
-// toggles "no entries" text as appropriate, testing:
+// toggles "no entries" text as appropriate:
 function toggleNoEntries(event) {
   const $hersheyArray = data.entries;
   if ($hersheyArray.length > 0) {
@@ -101,11 +101,15 @@ function toggleNoEntries(event) {
 $entryForm.addEventListener('submit', toggleNoEntries);
 $entryForm.addEventListener('submit', submitInfo);
 
-// listener for DOMContentLoaded event
-document.addEventListener('DOMContentLoaded', arrayLoop(data.entries));
+// listener for DOMContentLoaded event which calls multiple functions
+document.addEventListener('DOMContentLoaded', function (event) {
+  arrayLoop(data.entries);
+  viewSwap();
+  toggleNoEntries();
+});
 
 // view swapping function
-function viewSwap(entries) {
+function viewSwap() {
   for (const child of $parent.children) {
     child.classList.toggle('hidden');
   }
