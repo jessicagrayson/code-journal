@@ -8,6 +8,7 @@ const $parent = document.querySelector('main');
 const $navLink = document.querySelector('.nav-link');
 const $entryLink = document.querySelector('.entry-link');
 const $entriesList = document.querySelector('.entries-list');
+const $noEntryMessage = document.querySelector('.no-entry-message');
 
 // function which sets image src:
 function setImgSrc(event) {
@@ -43,8 +44,6 @@ function submitInfo(event) {
   $userCurrentImg.src = 'images/placeholder-image-square.jpg';
   // resets form
   $entryForm.reset();
-
-  // swaps view
 }
 
 // function to render entries
@@ -77,9 +76,6 @@ function renderEntry(entry) {
   $listItem.appendChild($title);
   $listItem.appendChild($notes);
 
-  // returns outermost div and all children
-  // return $row;
-
   // prepends DOM tree to list
   $entriesList.appendChild($row);
 }
@@ -93,11 +89,17 @@ function arrayLoop(array) {
   }
 }
 
-// submit event listener
-$entryForm.addEventListener('submit', submitInfo);
+// toggles "no entries" text as appropriate, testing:
+function toggleNoEntries(event) {
+  const $hersheyArray = data.entries;
+  if ($hersheyArray.length > 0) {
+    $noEntryMessage.classList.add('hidden');
+  }
+}
 
-// test
-// $entryForm.addEventListener('submit', renderEntry);
+// submit event listener
+$entryForm.addEventListener('submit', toggleNoEntries);
+$entryForm.addEventListener('submit', submitInfo);
 
 // listener for DOMContentLoaded event
 document.addEventListener('DOMContentLoaded', arrayLoop(data.entries));
@@ -112,8 +114,3 @@ function viewSwap(entries) {
 // toggles view
 $navLink.addEventListener('click', viewSwap);
 $entryLink.addEventListener('click', viewSwap);
-
-// need to query the no entries message and somehow remove + add hidden styling
-// function toggleNoEntrires(event){
-//   $noEntryMessage.classList.remove('hidden')
-// }
