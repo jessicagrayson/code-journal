@@ -52,7 +52,7 @@ function renderEntry(entry) {
   const $row = document.createElement('div');
   $row.className = 'row';
   const $column = document.createElement('div');
-  $column.className = 'column-full';
+  $column.className = 'column-half';
   const $list = document.createElement('ul');
   $list.className = 'journal-entry';
   const $listItem = document.createElement('li');

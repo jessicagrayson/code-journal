@@ -103,8 +103,6 @@ img {
 
 .no-entry-styles {
   display: flex;
-
-  /* may need to be adjusted when new button added */
   justify-content: space-around;
 }
 
@@ -116,9 +114,10 @@ img {
 }
 
 .nav-link {
-  /* adjust position later */
   color: #fff;
   text-decoration: none;
+  margin-left: 2rem;
+  margin-top: 1.8rem;
 }
 
 .entry-link {
@@ -136,7 +135,10 @@ img {
 }
 
 .entry-img {
-  /* NEED TO ADJUST THESE DIMENSIONS */
-  height: 40%;
-  width: 40%;
+  object-fit: scale-down;
+  object-position: top left;
+}
+
+ul {
+  list-style-type: none;
 }
