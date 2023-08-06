@@ -91,8 +91,8 @@ function arrayLoop(array) {
 
 // toggles "no entries" text as appropriate:
 function toggleNoEntries(event) {
-  const $hersheyArray = data.entries;
-  if ($hersheyArray.length > 0) {
+  const $entriesArray = data.entries;
+  if ($entriesArray.length > 0) {
     $noEntryMessage.classList.add('hidden');
   }
 }
