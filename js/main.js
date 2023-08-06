@@ -9,6 +9,7 @@ const $navLink = document.querySelector('.nav-link');
 const $entryLink = document.querySelector('.entry-link');
 const $entriesList = document.querySelector('.entries-list');
 const $noEntryMessage = document.querySelector('.no-entry-message');
+// const $entries = document.querySelector('.hidden');
 
 // function which sets image src:
 function setImgSrc(event) {
@@ -110,7 +111,8 @@ $entryForm.addEventListener('submit', submitInfo);
 // listener for DOMContentLoaded event which calls multiple functions
 document.addEventListener('DOMContentLoaded', function (event) {
   arrayLoop(data.entries);
-  viewSwap();
+
+  // viewSwap();
   toggleNoEntries();
 });
 

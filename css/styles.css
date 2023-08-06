@@ -103,12 +103,12 @@ img {
 
 .entry-column {
   padding: 0 0.75rem;
-  margin-bottom: 2rem;
 }
 
 .user-entry {
   display: flex;
   flex-direction: row-reverse;
+  align-items: flex-start;
   margin-bottom: 5%;
 }
 
@@ -119,7 +119,6 @@ img {
 }
 
 .no-entry-message {
-  /* padding may need to be adjusted later */
   padding-top: 10%;
   font-size: 18px;
   font-weight: 400;
@@ -147,8 +146,9 @@ img {
 }
 
 .entry-img {
-  object-fit: scale-down;
-  object-position: 0% 40%;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  margin-top: 20px;
 }
 
 .journal-entry {
@@ -158,6 +158,7 @@ img {
 
 .text-container {
   padding-left: 2rem;
+  width: 100%;
 }
 
 .entries-list {
