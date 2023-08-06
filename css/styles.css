@@ -86,15 +86,6 @@ img {
   align-items: flex-end;
 }
 
-.entry-row {
-  font-size: 1rem;
-  padding: 0 0.75rem;
-}
-
-.entry-column {
-  padding: 0 0.75rem;
-}
-
 .text-input {
   border-radius: 0.2rem;
   width: 100%;
@@ -104,6 +95,16 @@ img {
 }
 
 /* Data entries styles: */
+
+.entry-row {
+  font-size: 1rem;
+  padding: 0 0.75rem;
+}
+
+.entry-column {
+  padding: 0 0.75rem;
+  margin-bottom: 2rem;
+}
 
 .user-entry {
   display: flex;
@@ -161,4 +162,22 @@ img {
 
 .entries-list {
   padding: 0%;
+}
+
+@media screen and (max-width: 767px) {
+  .user-entry {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+
+  .entry-img {
+    object-fit: cover;
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+  }
 }

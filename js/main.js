@@ -53,6 +53,8 @@ function renderEntry(entry) {
   $row.className = 'row entry-row';
   const $column = document.createElement('div');
   $column.className = 'column-full entry-column';
+  const $entryContainer = document.createElement('div');
+  $entryContainer.className = 'entry-container';
   const $list = document.createElement('ul');
   $list.className = 'journal-entry';
   const $listItem = document.createElement('li');
@@ -72,7 +74,8 @@ function renderEntry(entry) {
   // append DOM nodes to build tree
 
   $row.appendChild($column);
-  $column.appendChild($list);
+  $column.appendChild($entryContainer);
+  $entryContainer.appendChild($list);
   $list.appendChild($listItem);
   $listItem.appendChild($textContainer);
   $listItem.appendChild($img);
