@@ -88,7 +88,11 @@ img {
 
 .entry-row {
   font-size: 1rem;
-  padding-left: 1%;
+  padding: 0 0.75rem;
+}
+
+.entry-column {
+  padding: 0 0.75rem;
 }
 
 .text-input {
@@ -101,9 +105,16 @@ img {
 
 /* Data entries styles: */
 
+.user-entry {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 5%;
+}
+
 .no-entry-styles {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 0.75rem;
 }
 
 .no-entry-message {
@@ -136,13 +147,18 @@ img {
 
 .entry-img {
   object-fit: scale-down;
-  object-position: top left;
+  object-position: 0% 40%;
 }
 
 .journal-entry {
   list-style-type: none;
+  padding: 0%;
 }
 
-.entry-title {
-  color: lime;
+.text-container {
+  padding-left: 2rem;
+}
+
+.entries-list {
+  padding: 0%;
 }

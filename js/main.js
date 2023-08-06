@@ -50,9 +50,9 @@ function submitInfo(event) {
 function renderEntry(entry) {
   // creates elements of DOM tree:
   const $row = document.createElement('div');
-  $row.className = 'row';
+  $row.className = 'row entry-row';
   const $column = document.createElement('div');
-  $column.className = 'column-half';
+  $column.className = 'column-full entry-column';
   const $list = document.createElement('ul');
   $list.className = 'journal-entry';
   const $listItem = document.createElement('li');
@@ -60,6 +60,8 @@ function renderEntry(entry) {
   const $img = document.createElement('img');
   $img.setAttribute('src', entry.url);
   $img.className = 'entry-img';
+  const $textContainer = document.createElement('div');
+  $textContainer.className = 'text-container';
   const $title = document.createElement('h2');
   $title.className = 'entry-title';
   $title.textContent = entry.title;
@@ -72,9 +74,10 @@ function renderEntry(entry) {
   $row.appendChild($column);
   $column.appendChild($list);
   $list.appendChild($listItem);
+  $listItem.appendChild($textContainer);
   $listItem.appendChild($img);
-  $listItem.appendChild($title);
-  $listItem.appendChild($notes);
+  $textContainer.appendChild($title);
+  $textContainer.appendChild($notes);
 
   // prepends DOM tree to list
   $entriesList.appendChild($row);
