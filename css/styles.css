@@ -103,6 +103,7 @@ img {
 
 .entry-column {
   padding: 0 0.75rem;
+  padding-left: 0;
 }
 
 .user-entry {

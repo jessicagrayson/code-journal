@@ -45,6 +45,9 @@ function submitInfo(event) {
   $userCurrentImg.src = 'images/placeholder-image-square.jpg';
   // resets form
   $entryForm.reset();
+
+  // automatically swaps view
+  viewSwap();
 }
 
 // function to render entries
