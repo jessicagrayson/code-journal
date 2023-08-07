@@ -49,7 +49,7 @@ function submitInfo(event) {
   $entryForm.reset();
 
   // automatically swaps view
-  viewSwap();
+  viewSwap('entries');
 
   // toggles "no entries" message
   toggleNoEntries();
@@ -119,22 +119,11 @@ $entryForm.addEventListener('submit', submitInfo);
 // listener for DOMContentLoaded event which calls multiple functions
 document.addEventListener('DOMContentLoaded', function (event) {
   arrayLoop(data.entries);
-  // viewSwap();
+  viewSwap(data.view);
   toggleNoEntries();
 });
 
-// view swapping function
-// function viewSwap() {
-//   for (const child of $parent.children) {
-//     child.classList.toggle('hidden');
-//   }
-// }
-
-// toggles view
-// $navLink.addEventListener('click', viewSwap('entries'));
-// $entryLink.addEventListener('click', viewSwap('entry-form'));
-
-// test
+// viewSwap conditional statement
 $navLink.addEventListener('click', function () {
   if (data.view === 'entries') {
     viewSwap('entry-form');
@@ -146,6 +135,7 @@ $entryLink.addEventListener('click', function () {
   viewSwap('entry-form');
 });
 
+// function enables viewSwap
 function viewSwap(viewName) {
   if (viewName === 'entry-form') {
     $entryView.classList.add('hidden');
