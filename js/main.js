@@ -4,12 +4,14 @@ const $currentPhotoUrl = document.querySelector('#photo-url');
 const $currentTitle = document.querySelector('#title');
 const $entryForm = document.querySelector('.form-input');
 const $userNotes = document.querySelector('#notes-field');
-const $parent = document.querySelector('main');
+// const $parent = document.querySelector('main');
 const $navLink = document.querySelector('.nav-link');
 const $entryLink = document.querySelector('.entry-link');
 const $entriesList = document.querySelector('.entries-list');
 const $noEntryMessage = document.querySelector('.no-entry-message');
-// const $entries = document.querySelector('.hidden');
+// testing below
+const $entryView = document.querySelector('[data-view=entries]');
+const $formView = document.querySelector('[data-view=entry-form]');
 
 // function which sets image src:
 function setImgSrc(event) {
@@ -48,6 +50,9 @@ function submitInfo(event) {
 
   // automatically swaps view
   viewSwap();
+
+  // toggles "no entries" message
+  toggleNoEntries();
 }
 
 // function to render entries
@@ -108,24 +113,47 @@ function toggleNoEntries(event) {
 }
 
 // submit event listener
-$entryForm.addEventListener('submit', toggleNoEntries);
+// $entryForm.addEventListener('submit', toggleNoEntries);
 $entryForm.addEventListener('submit', submitInfo);
 
 // listener for DOMContentLoaded event which calls multiple functions
 document.addEventListener('DOMContentLoaded', function (event) {
   arrayLoop(data.entries);
-
   // viewSwap();
   toggleNoEntries();
 });
 
 // view swapping function
-function viewSwap() {
-  for (const child of $parent.children) {
-    child.classList.toggle('hidden');
-  }
-}
+// function viewSwap() {
+//   for (const child of $parent.children) {
+//     child.classList.toggle('hidden');
+//   }
+// }
 
 // toggles view
-$navLink.addEventListener('click', viewSwap);
-$entryLink.addEventListener('click', viewSwap);
+// $navLink.addEventListener('click', viewSwap('entries'));
+// $entryLink.addEventListener('click', viewSwap('entry-form'));
+
+// test
+$navLink.addEventListener('click', function () {
+  if (data.view === 'entries') {
+    viewSwap('entry-form');
+  } else {
+    viewSwap('entries');
+  }
+});
+$entryLink.addEventListener('click', function () {
+  viewSwap('entry-form');
+});
+
+function viewSwap(viewName) {
+  if (viewName === 'entry-form') {
+    $entryView.classList.add('hidden');
+    $formView.classList.remove('hidden');
+    data.view = 'entry-form';
+  } else if (viewName === 'entries') {
+    $formView.classList.add('hidden');
+    $entryView.classList.remove('hidden');
+    data.view = 'entries';
+  }
+}
