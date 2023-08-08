@@ -1,17 +1,17 @@
+// NOTE TO SELF: PER SHAWN, TO FIX RELOAD ISSUE AFTER ENTRY IS CREATED SHOULD CALL RENDER FUNCTION AND APPEND IT TO THE DOM
+
 // dom queries
 const $userCurrentImg = document.querySelector('#user-img');
 const $currentPhotoUrl = document.querySelector('#photo-url');
 const $currentTitle = document.querySelector('#title');
 const $entryForm = document.querySelector('.form-input');
 const $userNotes = document.querySelector('#notes-field');
-// const $parent = document.querySelector('main');
 const $navLink = document.querySelector('.nav-link');
 const $entryLink = document.querySelector('.entry-link');
-const $entriesList = document.querySelector('.entries-list');
 const $noEntryMessage = document.querySelector('.no-entry-message');
-// testing below
 const $entryView = document.querySelector('[data-view=entries]');
 const $formView = document.querySelector('[data-view=entry-form]');
+const $list = document.querySelector('.entries-list');
 
 // function which sets image src:
 function setImgSrc(event) {
@@ -29,7 +29,7 @@ function submitInfo(event) {
   const title = $currentTitle.value;
   const url = $currentPhotoUrl.value;
   const notes = $userNotes.value;
-  // assigns form values to new object
+  // assigns form values to new object using shorthand:
   const formData = {
     title,
     url,
@@ -55,24 +55,22 @@ function submitInfo(event) {
   toggleNoEntries();
 }
 
-// function to render entries
+// function to render entries TEST
 function renderEntry(entry) {
   // creates elements of DOM tree:
-  const $row = document.createElement('div');
-  $row.className = 'row entry-row';
-  const $column = document.createElement('div');
-  $column.className = 'column-full entry-column';
-  const $entryContainer = document.createElement('div');
-  $entryContainer.className = 'entry-container';
-  const $list = document.createElement('ul');
-  $list.className = 'journal-entry';
   const $listItem = document.createElement('li');
   $listItem.className = 'user-entry';
+  const $row = document.createElement('div');
+  $row.className = 'row entry-row';
+  const $imgColumn = document.createElement('div');
+  $imgColumn.className = 'column-half image-column';
+  const $imgWrap = document.createElement('div');
+  $imgWrap.className = 'img-container';
   const $img = document.createElement('img');
   $img.setAttribute('src', entry.url);
   $img.className = 'entry-img';
-  const $textContainer = document.createElement('div');
-  $textContainer.className = 'text-container';
+  const $textColumn = document.createElement('div');
+  $textColumn.className = 'column-half text-column';
   const $title = document.createElement('h2');
   $title.className = 'entry-title';
   $title.textContent = entry.title;
@@ -80,19 +78,17 @@ function renderEntry(entry) {
   $notes.className = 'entry-notes';
   $notes.textContent = entry.notes;
 
-  // append DOM nodes to build tree
+  // append DOM nodes to build tree:
+  $listItem.appendChild($row);
+  $row.appendChild($imgColumn);
+  $imgColumn.appendChild($imgWrap);
+  $imgWrap.appendChild($img);
+  $row.appendChild($textColumn);
+  $textColumn.appendChild($title);
+  $textColumn.appendChild($notes);
 
-  $row.appendChild($column);
-  $column.appendChild($entryContainer);
-  $entryContainer.appendChild($list);
-  $list.appendChild($listItem);
-  $listItem.appendChild($textContainer);
-  $listItem.appendChild($img);
-  $textContainer.appendChild($title);
-  $textContainer.appendChild($notes);
-
-  // prepends DOM tree to list
-  $entriesList.appendChild($row);
+  // returns li with all child elements
+  return $listItem;
 }
 
 // looping function for renderEntry function - iterates nextEntryId
@@ -101,6 +97,8 @@ function arrayLoop(array) {
     const $entriesArray = array[i];
     // eslint-disable-next-line no-unused-vars
     const $renderedEntry = renderEntry($entriesArray);
+    // appends each new entry to the ul
+    $list.appendChild($renderedEntry);
   }
 }
 
