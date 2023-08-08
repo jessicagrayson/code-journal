@@ -53,6 +53,10 @@ function submitInfo(event) {
 
   // toggles "no entries" message
   toggleNoEntries();
+
+  // TESTTESTESTESTESTESTES
+  renderEntry(data.entries(formData));
+  //  PREPEND HERE?
 }
 
 // function to render entries TEST
