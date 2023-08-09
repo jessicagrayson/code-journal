@@ -17,6 +17,7 @@ header {
 
 .header-column {
   display: flex;
+  align-items: center;
 }
 
 h1,
@@ -73,6 +74,7 @@ img {
 
 .notes-row {
   font-size: 1.125rem;
+  margin-bottom: 1rem;
 }
 
 .footer-row {
@@ -98,19 +100,11 @@ img {
 
 .entry-row {
   font-size: 1rem;
-  padding: 0 0.75rem;
 }
 
-/* .entry-column {
-  padding: 0 0.75rem;
-  padding-left: 0;
-} */
-
 .user-entry {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
   margin-bottom: 5%;
+  list-style: none;
 }
 
 .no-entry-styles {
@@ -120,7 +114,7 @@ img {
 }
 
 .no-entry-message {
-  padding-top: 10%;
+  text-align: center;
   font-size: 18px;
   font-weight: 400;
 }
@@ -129,7 +123,12 @@ img {
   color: #fff;
   text-decoration: none;
   margin-left: 2rem;
-  margin-top: 1.8rem;
+}
+
+.entries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .entry-link {
@@ -142,7 +141,8 @@ img {
   border: #562b81 solid 0.3rem;
   border-radius: 0.1rem;
   padding-bottom: 1.5rem;
-  margin-top: 2rem;
+
+  /* margin-top: 2rem; */
   text-align: center;
 }
 
@@ -152,22 +152,8 @@ img {
   margin-top: 20px;
 }
 
-/* .journal-entry {
-  list-style-type: none;
-  padding: 0%;
-} */
-
-/* .text-container {
-  padding-left: 2rem;
-  width: 100%;
-} */
-
 .entries-list {
   padding: 0%;
-}
-
-.column-half {
-  width: 25rem;
 }
 
 .text-column {
@@ -181,11 +167,4 @@ img {
     flex-direction: column-reverse;
     justify-content: center;
   }
-
-  /* .text-container {
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-  }
-} */
 }

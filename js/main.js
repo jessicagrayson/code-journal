@@ -1,6 +1,3 @@
-// NOTE: Address w/ Shawn - entries not visible without reload, how do I make entry img square?
-// That means you aren't calling renderEntry inside your submit callback function, and appending the result to the DOM
-
 // dom queries
 const $userCurrentImg = document.querySelector('#user-img');
 const $currentPhotoUrl = document.querySelector('#photo-url');
@@ -55,8 +52,7 @@ function submitInfo(event) {
   // toggles "no entries" message
   toggleNoEntries();
 
-  // TEST
-  renderEntry(data.entries(formData));
+  $list.prepend(renderEntry(formData));
 }
 
 // function to render entries TEST
@@ -68,8 +64,6 @@ function renderEntry(entry) {
   $row.className = 'row entry-row';
   const $imgColumn = document.createElement('div');
   $imgColumn.className = 'column-half image-column';
-  const $imgWrap = document.createElement('div');
-  $imgWrap.className = 'img-container';
   const $img = document.createElement('img');
   $img.setAttribute('src', entry.url);
   $img.className = 'entry-img';
@@ -85,8 +79,7 @@ function renderEntry(entry) {
   // append DOM nodes to build tree:
   $listItem.appendChild($row);
   $row.appendChild($imgColumn);
-  $imgColumn.appendChild($imgWrap);
-  $imgWrap.appendChild($img);
+  $imgColumn.appendChild($img);
   $row.appendChild($textColumn);
   $textColumn.appendChild($title);
   $textColumn.appendChild($notes);
@@ -100,7 +93,6 @@ function renderEntry(entry) {
 function arrayLoop(array) {
   for (let i = 0; i < array.length; i++) {
     const $entriesArray = array[i];
-    // eslint-disable-next-line no-unused-vars
     const $renderedEntry = renderEntry($entriesArray);
     // appends each new entry to the ul
     $list.appendChild($renderedEntry);
@@ -112,11 +104,11 @@ function toggleNoEntries(event) {
   const $entriesArray = data.entries;
   if ($entriesArray.length > 0) {
     $noEntryMessage.classList.add('hidden');
+  } else {
+    $noEntryMessage.classList.remove('hidden');
   }
 }
 
-// submit event listener
-// $entryForm.addEventListener('submit', toggleNoEntries);
 $entryForm.addEventListener('submit', submitInfo);
 
 // listener for DOMContentLoaded event which calls multiple functions
@@ -128,11 +120,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 // viewSwap conditional statement
 $navLink.addEventListener('click', function () {
-  if (data.view === 'entries') {
-    viewSwap('entry-form');
-  } else {
-    viewSwap('entries');
-  }
+  viewSwap('entries');
 });
 $entryLink.addEventListener('click', function () {
   viewSwap('entry-form');
