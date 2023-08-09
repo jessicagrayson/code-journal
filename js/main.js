@@ -1,4 +1,5 @@
-// NOTE TO SELF: PER SHAWN, TO FIX RELOAD ISSUE AFTER ENTRY IS CREATED SHOULD CALL RENDER FUNCTION AND APPEND IT TO THE DOM
+// NOTE: Address w/ Shawn - entries not visible without reload, how do I make entry img square?
+// That means you aren't calling renderEntry inside your submit callback function, and appending the result to the DOM
 
 // dom queries
 const $userCurrentImg = document.querySelector('#user-img');
@@ -54,9 +55,8 @@ function submitInfo(event) {
   // toggles "no entries" message
   toggleNoEntries();
 
-  // TESTTESTESTESTESTESTES
+  // TEST
   renderEntry(data.entries(formData));
-  //  PREPEND HERE?
 }
 
 // function to render entries TEST
@@ -92,6 +92,7 @@ function renderEntry(entry) {
   $textColumn.appendChild($notes);
 
   // returns li with all child elements
+  $list.appendChild($listItem);
   return $listItem;
 }
 
