@@ -166,3 +166,12 @@ img {
     justify-content: center;
   }
 }
+
+.entry-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon {
+  color: yellow;
+}

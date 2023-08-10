@@ -10,6 +10,7 @@ const $noEntryMessage = document.querySelector('.no-entry-message');
 const $entryView = document.querySelector('[data-view=entries]');
 const $formView = document.querySelector('[data-view=entry-form]');
 const $list = document.querySelector('.entries-list');
+// const $hersheyIcon = document.querySelector('.icon');
 
 // function which sets image src:
 function setImgSrc(event) {
@@ -60,6 +61,8 @@ function renderEntry(entry) {
   // creates elements of DOM tree:
   const $listItem = document.createElement('li');
   $listItem.className = 'user-entry';
+  // BELOW IS A WIP, NEED TO APPEND ID TO ELEMENT?
+  $listItem.setAttribute('data-entry-id', data.entryId);
   const $row = document.createElement('div');
   $row.className = 'row entry-row';
   const $imgColumn = document.createElement('div');
@@ -72,6 +75,8 @@ function renderEntry(entry) {
   const $title = document.createElement('h2');
   $title.className = 'entry-title';
   $title.textContent = entry.title;
+  const $icon = document.createElement('i');
+  $icon.classList = 'fa-solid fa-pencil icon';
   const $notes = document.createElement('p');
   $notes.className = 'entry-notes';
   $notes.textContent = entry.notes;
@@ -82,6 +87,7 @@ function renderEntry(entry) {
   $imgColumn.appendChild($img);
   $row.appendChild($textColumn);
   $textColumn.appendChild($title);
+  $title.appendChild($icon);
   $textColumn.appendChild($notes);
 
   // returns li with all child elements
@@ -138,3 +144,10 @@ function viewSwap(viewName) {
     data.view = 'entries';
   }
 }
+
+// adds event listener to ul in entries view pencil icon that viewSwaps - edit functionality WIP
+document.addEventListener('click', function () {
+  if (event.target.classList.contains('icon')) {
+    viewSwap('entry-form');
+  }
+});
