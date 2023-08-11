@@ -112,7 +112,7 @@ function toggleNoEntries(event) {
     $noEntryMessage.classList.remove('hidden');
   }
 }
-
+// event listener for submit function
 $entryForm.addEventListener('submit', submitInfo);
 
 // listener for DOMContentLoaded event which calls multiple functions
@@ -143,24 +143,30 @@ function viewSwap(viewName) {
   }
 }
 
-// adds event listener to ul in entries view pencil icon that viewSwaps - edit functionality WIP
+// adds event listener to ul in entries view pencil icon that viewSwaps
 document.addEventListener('click', function () {
   if (event.target.classList.contains('icon')) {
+    // change to entry-form view
     viewSwap('entry-form');
+    // conditionally assigns data.entries values to data.editing
     editingLoop(event);
+    // pre-populates form with existing values entered by user
     formEditing(event);
+    // changes form title to read "edit entry"
     updateTitle(event);
   }
 });
 
 // iterate through data.entries
-// eslint-disable-next-line no-unused-vars
 function editingLoop(event) {
-  // const pickedEntryId = event.target.getAttribute('data-entry-id');
   const pickedEntryId = parseInt(event.target.getAttribute('data-entry-id'));
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === pickedEntryId) {
       data.editing = data.entries[i];
+      // resets form values if no data.entries
+    } else if (data.entries === null) {
+      $entryForm.reset();
+      alert('hello world');
     }
   }
 }
@@ -181,6 +187,8 @@ function formEditing() {
 
 // conditionally changes title when editing an entry
 function updateTitle(event) {
-  const hershey = document.querySelector('.new-entry-header');
-  hershey.innerHTML = 'Edit Entry';
+  const entryHeader = document.querySelector('.new-entry-header');
+  entryHeader.innerHTML = 'Edit Entry';
 }
+
+// sets entry form functionality to standard
