@@ -60,8 +60,7 @@ function renderEntry(entry) {
   // creates elements of DOM tree:
   const $listItem = document.createElement('li');
   $listItem.className = 'user-entry';
-  // BELOW IS A WIP, NEED TO APPEND ID TO ELEMENT?
-  $listItem.setAttribute('data-entry-id', data.entryId);
+  $listItem.setAttribute('data-entry-id', entry.entryId);
   const $row = document.createElement('div');
   $row.className = 'row entry-row';
   const $imgColumn = document.createElement('div');
@@ -76,6 +75,8 @@ function renderEntry(entry) {
   $title.textContent = entry.title;
   const $icon = document.createElement('i');
   $icon.classList = 'fa-solid fa-pencil icon';
+  $icon.setAttribute('data-entry-id', entry.entryId);
+
   const $notes = document.createElement('p');
   $notes.className = 'entry-notes';
   $notes.textContent = entry.notes;
@@ -148,16 +149,19 @@ function viewSwap(viewName) {
 document.addEventListener('click', function () {
   if (event.target.classList.contains('icon')) {
     viewSwap('entry-form');
+    editingLoop(event);
+    formEditing(event);
   }
 });
 
 // iterate through data.entries
 // eslint-disable-next-line no-unused-vars
 function editingLoop(event) {
+  // const pickedEntryId = event.target.getAttribute('data-entry-id');
+  const pickedEntryId = parseInt(event.target.getAttribute('data-entry-id'));
   for (let i = 0; i < data.entries.length; i++) {
-    if (data.entries[i].id === data.entryId) {
+    if (data.entries[i].entryId === pickedEntryId) {
       data.editing = data.entries[i];
-      break;
     }
   }
 }
@@ -167,12 +171,14 @@ function editingLoop(event) {
 // id - title, id - photo-url, id = notes-field
 // eslint-disable-next-line no-unused-vars
 function formEditing() {
-  const titleField = document.getElementById('title');
-  const photoField = document.getElementById('photo-url');
-  const notesField = document.getElementById('notes-field');
+  const titleField = document.querySelector('.text-input');
+  const photoField = document.querySelector('#photo-url.text-input');
+  const notesField = document.querySelector('.notes-field');
+  const imgField = document.querySelector('#user-img');
   if (data.editing) {
     titleField.value = data.editing.title;
-    photoField.value = data.editing['photo-url'];
-    notesField.value = data.editing['notes-field'];
+    photoField.value = data.editing.url;
+    notesField.value = data.editing.notes;
+    imgField.src = data.editing.url;
   }
 }
