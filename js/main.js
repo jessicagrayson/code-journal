@@ -55,7 +55,6 @@ function submitInfo(event) {
   $list.prepend(renderEntry(formData));
 }
 
-// function to render entries TEST
 function renderEntry(entry) {
   // creates elements of DOM tree:
   const $listItem = document.createElement('li');
@@ -76,7 +75,6 @@ function renderEntry(entry) {
   const $icon = document.createElement('i');
   $icon.classList = 'fa-solid fa-pencil icon';
   $icon.setAttribute('data-entry-id', entry.entryId);
-
   const $notes = document.createElement('p');
   $notes.className = 'entry-notes';
   $notes.textContent = entry.notes;
@@ -151,6 +149,7 @@ document.addEventListener('click', function () {
     viewSwap('entry-form');
     editingLoop(event);
     formEditing(event);
+    updateTitle(event);
   }
 });
 
@@ -167,9 +166,6 @@ function editingLoop(event) {
 }
 
 // function to pre-populate entry form with existing values
-
-// id - title, id - photo-url, id = notes-field
-// eslint-disable-next-line no-unused-vars
 function formEditing() {
   const titleField = document.querySelector('.text-input');
   const photoField = document.querySelector('#photo-url.text-input');
@@ -181,4 +177,10 @@ function formEditing() {
     notesField.value = data.editing.notes;
     imgField.src = data.editing.url;
   }
+}
+
+// conditionally changes title when editing an entry
+function updateTitle(event) {
+  const hershey = document.querySelector('.new-entry-header');
+  hershey.innerHTML = 'Edit Entry';
 }
