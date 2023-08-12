@@ -33,26 +33,33 @@ function submitInfo(event) {
     url,
     notes,
   };
+
   // assigns value of nextEntryId property of data object to new property entryId and adds to $formData
-  formData.entryId = data.nextEntryId;
-  // increments value of nextEntryId
-  data.nextEntryId = data.nextEntryId + 1;
+  if (data.editing === null) {
+    formData.entryId = data.nextEntryId;
+    // increments value of nextEntryId
+    data.nextEntryId = data.nextEntryId + 1;
 
-  // adds object to beginning of array
-  data.entries.unshift(formData);
+    // adds object to beginning of array
+    data.entries.unshift(formData);
 
-  // Resets image src
-  $userCurrentImg.src = 'images/placeholder-image-square.jpg';
-  // resets form
-  $entryForm.reset();
+    // Resets image src
+    $userCurrentImg.src = 'images/placeholder-image-square.jpg';
+    // resets form
+    $entryForm.reset();
 
+    // prepends list to ul
+    $list.prepend(renderEntry(formData));
+  } else {
+    // code for when editing goes here
+    data.editing.entryId = formData.entryId;
+    data.editing = formData.entryId;
+  }
   // automatically swaps view
   viewSwap('entries');
 
   // toggles "no entries" message
   toggleNoEntries();
-
-  $list.prepend(renderEntry(formData));
 }
 
 function renderEntry(entry) {
@@ -163,32 +170,23 @@ function editingLoop(event) {
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === pickedEntryId) {
       data.editing = data.entries[i];
-      // resets form values if no data.entries
+      // resets form values if no data.entries, may be okay to delete????
     } else if (data.entries === null) {
       $entryForm.reset();
-      alert('hello world');
     }
   }
 }
 
 // function to pre-populate entry form with existing values
 function formEditing() {
-  const titleField = document.querySelector('.text-input');
-  const photoField = document.querySelector('#photo-url.text-input');
-  const notesField = document.querySelector('.notes-field');
-  const imgField = document.querySelector('#user-img');
-  if (data.editing) {
-    titleField.value = data.editing.title;
-    photoField.value = data.editing.url;
-    notesField.value = data.editing.notes;
-    imgField.src = data.editing.url;
-  }
+  // change these variable names to ones I already queried up top!
+  $currentTitle.value = data.editing.title;
+  $currentPhotoUrl.value = data.editing.url;
+  $userNotes.value = data.editing.notes;
+  $userCurrentImg.src = data.editing.url;
 }
-
 // conditionally changes title when editing an entry
 function updateTitle(event) {
   const entryHeader = document.querySelector('.new-entry-header');
   entryHeader.innerHTML = 'Edit Entry';
 }
-
-// sets entry form functionality to standard
