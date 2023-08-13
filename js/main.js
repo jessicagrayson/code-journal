@@ -89,6 +89,11 @@ function submitInfo(event) {
 
   // toggles "no entries" message
   toggleNoEntries();
+
+  // resets form values TESTING
+  $entryForm.reset();
+  // resets img
+  $userCurrentImg.src = 'images/placeholder-image-square.jpg';
 }
 
 function renderEntry(entry) {
