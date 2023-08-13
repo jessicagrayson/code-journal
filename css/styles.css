@@ -84,8 +84,8 @@ img {
 
 .button-column {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .text-input {
@@ -94,6 +94,18 @@ img {
   height: 1.5rem;
   margin-bottom: 1rem;
   margin-top: 0.3rem;
+}
+
+.delete-button {
+  color: #dc2626;
+  border: none;
+  font-size: 1rem;
+  text-decoration: underline;
+  width: 8rem;
+}
+
+.button-hide {
+  visibility: hidden;
 }
 
 /* Data entries styles: */

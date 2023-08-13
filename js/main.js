@@ -200,6 +200,8 @@ document.addEventListener('click', function () {
     formEditing();
     // changes form title to read "edit entry"
     updateTitle();
+    // toggles delete button
+    toggleDelete();
   }
 });
 
@@ -224,4 +226,10 @@ function formEditing() {
 function updateTitle() {
   const entryHeader = document.querySelector('.new-entry-header');
   entryHeader.innerHTML = 'Edit Entry';
+}
+
+// toggles delete entry button
+function toggleDelete() {
+  const $deleteButton = document.querySelector('.delete-button');
+  $deleteButton.classList.remove('button-hide');
 }
