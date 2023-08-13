@@ -34,32 +34,73 @@ function submitInfo(event) {
     notes,
   };
   // assigns value of nextEntryId property of data object to new property entryId and adds to $formData
-  formData.entryId = data.nextEntryId;
-  // increments value of nextEntryId
-  data.nextEntryId = data.nextEntryId + 1;
+  if (data.editing === null) {
+    // alert('if works');
+    formData.entryId = data.nextEntryId;
+    // increments value of nextEntryId
+    data.nextEntryId = data.nextEntryId + 1;
 
-  // adds object to beginning of array
-  data.entries.unshift(formData);
+    // adds object to beginning of array
+    data.entries.unshift(formData);
 
-  // Resets image src
-  $userCurrentImg.src = 'images/placeholder-image-square.jpg';
-  // resets form
-  $entryForm.reset();
+    // Resets image src
+    $userCurrentImg.src = 'images/placeholder-image-square.jpg';
+    // resets form
+    $entryForm.reset();
 
+    // prepends list to ul
+    $list.prepend(renderEntry(formData));
+  } else {
+    // code for when editing goes here
+    const editedEntryId = data.editing.entryId;
+
+    // update data for edited entry
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === editedEntryId) {
+        data.entries[i].title = formData.title;
+        data.entries[i].url = formData.url;
+        data.entries[i].notes = formData.notes;
+        data.entries[i].entryId = editedEntryId;
+      }
+    }
+
+    // data.entries[i].entryId === pickedEntryId
+
+    // find corresponding DOM element for edited entry
+    const $editedEntry = document.querySelector(
+      `[data-entry-id="${editedEntryId}"]`
+    );
+    if ($editedEntry) {
+      // render new DOM tree
+      for (let i = 0; i < data.entries.length; i++) {
+        if (data.entries[i].entryId === editedEntryId) {
+          const $newRenderedEntry = renderEntry(data.entries[i]);
+          $list.replaceChild($newRenderedEntry, $editedEntry);
+        }
+      }
+    }
+    // reset data.editing
+    data.editing = null;
+    // update title to 'new entry'
+    updateTitleToNewEntry();
+  }
   // automatically swaps view
   viewSwap('entries');
 
   // toggles "no entries" message
   toggleNoEntries();
 
-  $list.prepend(renderEntry(formData));
+  // resets form values TESTING
+  $entryForm.reset();
+  // resets img
+  $userCurrentImg.src = 'images/placeholder-image-square.jpg';
 }
 
-// function to render entries TEST
 function renderEntry(entry) {
   // creates elements of DOM tree:
   const $listItem = document.createElement('li');
   $listItem.className = 'user-entry';
+  $listItem.setAttribute('data-entry-id', entry.entryId);
   const $row = document.createElement('div');
   $row.className = 'row entry-row';
   const $imgColumn = document.createElement('div');
@@ -72,6 +113,9 @@ function renderEntry(entry) {
   const $title = document.createElement('h2');
   $title.className = 'entry-title';
   $title.textContent = entry.title;
+  const $icon = document.createElement('i');
+  $icon.classList = 'fa-solid fa-pencil icon';
+  $icon.setAttribute('data-entry-id', entry.entryId);
   const $notes = document.createElement('p');
   $notes.className = 'entry-notes';
   $notes.textContent = entry.notes;
@@ -82,6 +126,7 @@ function renderEntry(entry) {
   $imgColumn.appendChild($img);
   $row.appendChild($textColumn);
   $textColumn.appendChild($title);
+  $title.appendChild($icon);
   $textColumn.appendChild($notes);
 
   // returns li with all child elements
@@ -108,7 +153,12 @@ function toggleNoEntries(event) {
     $noEntryMessage.classList.remove('hidden');
   }
 }
-
+// function to reset title to be utilized inside submitInfo function
+function updateTitleToNewEntry() {
+  const entryHeader = document.querySelector('.new-entry-header');
+  entryHeader.innerHTML = 'New Entry';
+}
+// event listener for submit function
 $entryForm.addEventListener('submit', submitInfo);
 
 // listener for DOMContentLoaded event which calls multiple functions
@@ -137,4 +187,41 @@ function viewSwap(viewName) {
     $entryView.classList.remove('hidden');
     data.view = 'entries';
   }
+}
+
+// adds event listener to ul in entries view pencil icon that viewSwaps
+document.addEventListener('click', function () {
+  if (event.target.classList.contains('icon')) {
+    // change to entry-form view
+    viewSwap('entry-form');
+    // conditionally assigns data.entries values to data.editing
+    editingLoop();
+    // pre-populates form with existing values entered by user
+    formEditing();
+    // changes form title to read "edit entry"
+    updateTitle();
+  }
+});
+
+// iterate through data.entries
+function editingLoop() {
+  const pickedEntryId = parseInt(event.target.getAttribute('data-entry-id'));
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === pickedEntryId) {
+      data.editing = data.entries[i];
+    }
+  }
+}
+
+// function to pre-populate entry form with existing values
+function formEditing() {
+  $currentTitle.value = data.editing.title;
+  $currentPhotoUrl.value = data.editing.url;
+  $userNotes.value = data.editing.notes;
+  $userCurrentImg.src = data.editing.url;
+}
+// conditionally changes title when editing an entry
+function updateTitle() {
+  const entryHeader = document.querySelector('.new-entry-header');
+  entryHeader.innerHTML = 'Edit Entry';
 }
