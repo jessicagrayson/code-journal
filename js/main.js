@@ -33,9 +33,9 @@ function submitInfo(event) {
     url,
     notes,
   };
-
   // assigns value of nextEntryId property of data object to new property entryId and adds to $formData
   if (data.editing === null) {
+    // alert('if works');
     formData.entryId = data.nextEntryId;
     // increments value of nextEntryId
     data.nextEntryId = data.nextEntryId + 1;
@@ -52,8 +52,37 @@ function submitInfo(event) {
     $list.prepend(renderEntry(formData));
   } else {
     // code for when editing goes here
-    data.editing.entryId = formData.entryId;
-    data.editing = formData.entryId;
+    const editedEntryId = data.editing.entryId;
+
+    // update data for edited entry
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === editedEntryId) {
+        data.entries[i].title = formData.title;
+        data.entries[i].url = formData.url;
+        data.entries[i].notes = formData.notes;
+        data.entries[i].entryId = editedEntryId;
+      }
+    }
+
+    // data.entries[i].entryId === pickedEntryId
+
+    // find corresponding DOM element for edited entry
+    const $editedEntry = document.querySelector(
+      `[data-entry-id="${editedEntryId}"]`
+    );
+    if ($editedEntry) {
+      // render new DOM tree
+      for (let i = 0; i < data.entries.length; i++) {
+        if (data.entries[i].entryId === editedEntryId) {
+          const $newRenderedEntry = renderEntry(data.entries[i]);
+          $list.replaceChild($newRenderedEntry, $editedEntry);
+        }
+      }
+    }
+    // reset data.editing
+    data.editing = null;
+    // update title to 'new entry'
+    updateTitleToNewEntry();
   }
   // automatically swaps view
   viewSwap('entries');
@@ -119,6 +148,11 @@ function toggleNoEntries(event) {
     $noEntryMessage.classList.remove('hidden');
   }
 }
+// function to reset title to be utilized inside submitInfo function
+function updateTitleToNewEntry() {
+  const entryHeader = document.querySelector('.new-entry-header');
+  entryHeader.innerHTML = 'New Entry';
+}
 // event listener for submit function
 $entryForm.addEventListener('submit', submitInfo);
 
@@ -156,37 +190,33 @@ document.addEventListener('click', function () {
     // change to entry-form view
     viewSwap('entry-form');
     // conditionally assigns data.entries values to data.editing
-    editingLoop(event);
+    editingLoop();
     // pre-populates form with existing values entered by user
-    formEditing(event);
+    formEditing();
     // changes form title to read "edit entry"
-    updateTitle(event);
+    updateTitle();
   }
 });
 
 // iterate through data.entries
-function editingLoop(event) {
+function editingLoop() {
   const pickedEntryId = parseInt(event.target.getAttribute('data-entry-id'));
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === pickedEntryId) {
       data.editing = data.entries[i];
-      // resets form values if no data.entries, may be okay to delete????
-    } else if (data.entries === null) {
-      $entryForm.reset();
     }
   }
 }
 
 // function to pre-populate entry form with existing values
 function formEditing() {
-  // change these variable names to ones I already queried up top!
   $currentTitle.value = data.editing.title;
   $currentPhotoUrl.value = data.editing.url;
   $userNotes.value = data.editing.notes;
   $userCurrentImg.src = data.editing.url;
 }
 // conditionally changes title when editing an entry
-function updateTitle(event) {
+function updateTitle() {
   const entryHeader = document.querySelector('.new-entry-header');
   entryHeader.innerHTML = 'Edit Entry';
 }
