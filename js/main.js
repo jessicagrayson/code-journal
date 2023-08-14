@@ -35,7 +35,6 @@ function submitInfo(event) {
   };
   // assigns value of nextEntryId property of data object to new property entryId and adds to $formData
   if (data.editing === null) {
-    // alert('if works');
     formData.entryId = data.nextEntryId;
     // increments value of nextEntryId
     data.nextEntryId = data.nextEntryId + 1;
@@ -54,6 +53,7 @@ function submitInfo(event) {
     // code for when editing goes here
     const editedEntryId = data.editing.entryId;
 
+    formData.entryId = editedEntryId;
     // update data for edited entry
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === editedEntryId) {
@@ -77,7 +77,7 @@ function submitInfo(event) {
   // toggles "no entries" message
   toggleNoEntries();
 
-  // resets form values TESTING
+  // resets form values
   $entryForm.reset();
   // resets img
   $userCurrentImg.src = 'images/placeholder-image-square.jpg';
@@ -102,7 +102,6 @@ function renderEntry(entry) {
   $title.textContent = entry.title;
   const $icon = document.createElement('i');
   $icon.classList = 'fa-solid fa-pencil icon';
-  // $icon.setAttribute('data-entry-id', entry.entryId);
   const $notes = document.createElement('p');
   $notes.className = 'entry-notes';
   $notes.textContent = entry.notes;
@@ -115,6 +114,22 @@ function renderEntry(entry) {
   $textColumn.appendChild($title);
   $title.appendChild($icon);
   $textColumn.appendChild($notes);
+
+  // adds event listener to ul in entries view pencil icon that viewSwaps
+  $listItem.addEventListener('click', function (event) {
+    if (event.target.classList.contains('icon')) {
+      // change to entry-form view
+      viewSwap('entry-form');
+      // conditionally assigns data.entries values to data.editing
+      editingLoop();
+      // pre-populates form with existing values entered by user
+      formEditing();
+      // changes form title to read "edit entry"
+      updateTitle();
+      // toggles delete button
+      toggleDelete();
+    }
+  });
 
   // returns li with all child elements
   $list.appendChild($listItem);
@@ -176,42 +191,21 @@ function viewSwap(viewName) {
   }
 }
 
-// adds event listener to ul in entries view pencil icon that viewSwaps
-// CHANGE - ADDED EVENT PARAMETER, CHANGED EVENT TARGET TO LI VS ICON
-$list.addEventListener('click', function (event) {
-  if (event.target.classList.contains('icon')) {
-    // change to entry-form view
-    viewSwap('entry-form');
-    // conditionally assigns data.entries values to data.editing
-    editingLoop();
-    // pre-populates form with existing values entered by user
-    formEditing();
-    // changes form title to read "edit entry"
-    updateTitle();
-    // toggles delete button
-    toggleDelete();
-  }
-});
-
 // iterate through data.entries
 function editingLoop() {
-  const pickedEntryId = parseInt(event.target.getAttribute('data-entry-id'));
-  alert('inside function outside loop');
+  const listItemAncestor = event.target.closest('.user-entry');
+  const pickedEntryId = parseInt(
+    listItemAncestor.getAttribute('data-entry-id')
+  );
   for (let i = 0; i < data.entries.length; i++) {
-    alert('start loop');
     if (data.entries[i].entryId === pickedEntryId) {
-      alert('start if');
       data.editing = data.entries[i];
-      alert('editingLoop');
-      alert(data.editing.value);
     }
   }
 }
 
 // function to pre-populate entry form with existing values
 function formEditing() {
-  alert('hello world');
-  alert(data.editing.value);
   $currentTitle.value = data.editing.title;
   $currentPhotoUrl.value = data.editing.url;
   $userNotes.value = data.editing.notes;
