@@ -57,26 +57,13 @@ function submitInfo(event) {
     // update data for edited entry
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === editedEntryId) {
-        data.entries[i].title = formData.title;
-        data.entries[i].url = formData.url;
-        data.entries[i].notes = formData.notes;
-        data.entries[i].entryId = editedEntryId;
-      }
-    }
-
-    // data.entries[i].entryId === pickedEntryId
-
-    // find corresponding DOM element for edited entry
-    const $editedEntry = document.querySelector(
-      `[data-entry-id="${editedEntryId}"]`
-    );
-    if ($editedEntry) {
-      // render new DOM tree
-      for (let i = 0; i < data.entries.length; i++) {
-        if (data.entries[i].entryId === editedEntryId) {
-          const $newRenderedEntry = renderEntry(data.entries[i]);
-          $list.replaceChild($newRenderedEntry, $editedEntry);
-        }
+        data.entries[i] = formData;
+        // render new DOM tree
+        const $editedEntry = document.querySelector(
+          `[data-entry-id="${editedEntryId}"]`
+        );
+        const $newRenderedEntry = renderEntry(data.entries[i]);
+        $list.replaceChild($newRenderedEntry, $editedEntry);
       }
     }
     // reset data.editing
@@ -115,7 +102,7 @@ function renderEntry(entry) {
   $title.textContent = entry.title;
   const $icon = document.createElement('i');
   $icon.classList = 'fa-solid fa-pencil icon';
-  $icon.setAttribute('data-entry-id', entry.entryId);
+  // $icon.setAttribute('data-entry-id', entry.entryId);
   const $notes = document.createElement('p');
   $notes.className = 'entry-notes';
   $notes.textContent = entry.notes;
@@ -156,7 +143,7 @@ function toggleNoEntries(event) {
 // function to reset title to be utilized inside submitInfo function
 function updateTitleToNewEntry() {
   const entryHeader = document.querySelector('.new-entry-header');
-  entryHeader.innerHTML = 'New Entry';
+  entryHeader.textContent = 'New Entry';
 }
 // event listener for submit function
 $entryForm.addEventListener('submit', submitInfo);
@@ -190,7 +177,8 @@ function viewSwap(viewName) {
 }
 
 // adds event listener to ul in entries view pencil icon that viewSwaps
-document.addEventListener('click', function () {
+// CHANGE - ADDED EVENT PARAMETER, CHANGED EVENT TARGET TO LI VS ICON
+$list.addEventListener('click', function (event) {
   if (event.target.classList.contains('icon')) {
     // change to entry-form view
     viewSwap('entry-form');
@@ -208,15 +196,22 @@ document.addEventListener('click', function () {
 // iterate through data.entries
 function editingLoop() {
   const pickedEntryId = parseInt(event.target.getAttribute('data-entry-id'));
+  alert('inside function outside loop');
   for (let i = 0; i < data.entries.length; i++) {
+    alert('start loop');
     if (data.entries[i].entryId === pickedEntryId) {
+      alert('start if');
       data.editing = data.entries[i];
+      alert('editingLoop');
+      alert(data.editing.value);
     }
   }
 }
 
 // function to pre-populate entry form with existing values
 function formEditing() {
+  alert('hello world');
+  alert(data.editing.value);
   $currentTitle.value = data.editing.title;
   $currentPhotoUrl.value = data.editing.url;
   $userNotes.value = data.editing.notes;
@@ -225,7 +220,7 @@ function formEditing() {
 // conditionally changes title when editing an entry
 function updateTitle() {
   const entryHeader = document.querySelector('.new-entry-header');
-  entryHeader.innerHTML = 'Edit Entry';
+  entryHeader.textContent = 'Edit Entry';
 }
 
 // toggles delete entry button
