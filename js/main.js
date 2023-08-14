@@ -116,7 +116,7 @@ function renderEntry(entry) {
   $textColumn.appendChild($notes);
 
   // adds event listener to ul in entries view pencil icon that viewSwaps
-  $listItem.addEventListener('click', function (event) {
+  $list.addEventListener('click', function (event) {
     if (event.target.classList.contains('icon')) {
       // change to entry-form view
       viewSwap('entry-form');
