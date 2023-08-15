@@ -115,26 +115,26 @@ function renderEntry(entry) {
   $title.appendChild($icon);
   $textColumn.appendChild($notes);
 
-  // adds event listener to ul in entries view pencil icon that viewSwaps
-  $list.addEventListener('click', function (event) {
-    if (event.target.classList.contains('icon')) {
-      // change to entry-form view
-      viewSwap('entry-form');
-      // conditionally assigns data.entries values to data.editing
-      editingLoop();
-      // pre-populates form with existing values entered by user
-      formEditing();
-      // changes form title to read "edit entry"
-      updateTitle();
-      // toggles delete button
-      toggleDelete();
-    }
-  });
-
   // returns li with all child elements
   $list.appendChild($listItem);
   return $listItem;
 }
+
+// adds event listener to ul in entries view pencil icon that viewSwaps
+$list.addEventListener('click', function (event) {
+  if (event.target.classList.contains('icon')) {
+    // change to entry-form view
+    viewSwap('entry-form');
+    // conditionally assigns data.entries values to data.editing
+    editingLoop();
+    // pre-populates form with existing values entered by user
+    formEditing();
+    // changes form title to read "edit entry"
+    updateTitle();
+    // toggles delete button
+    toggleDelete();
+  }
+});
 
 // looping function for renderEntry function - iterates nextEntryId
 function arrayLoop(array) {
