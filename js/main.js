@@ -10,6 +10,10 @@ const $noEntryMessage = document.querySelector('.no-entry-message');
 const $entryView = document.querySelector('[data-view=entries]');
 const $formView = document.querySelector('[data-view=entry-form]');
 const $list = document.querySelector('.entries-list');
+const $deleteButton = document.querySelector('.delete-button');
+const $modal = document.querySelector('.delete-modal');
+const $cancel = document.querySelector('.cancel-button');
+const $confirm = document.querySelector('.confirm-button');
 
 // function which sets image src:
 function setImgSrc(event) {
@@ -35,7 +39,6 @@ function submitInfo(event) {
   };
   // assigns value of nextEntryId property of data object to new property entryId and adds to $formData
   if (data.editing === null) {
-    // alert('if works');
     formData.entryId = data.nextEntryId;
     // increments value of nextEntryId
     data.nextEntryId = data.nextEntryId + 1;
@@ -54,29 +57,17 @@ function submitInfo(event) {
     // code for when editing goes here
     const editedEntryId = data.editing.entryId;
 
+    formData.entryId = editedEntryId;
     // update data for edited entry
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === editedEntryId) {
-        data.entries[i].title = formData.title;
-        data.entries[i].url = formData.url;
-        data.entries[i].notes = formData.notes;
-        data.entries[i].entryId = editedEntryId;
-      }
-    }
-
-    // data.entries[i].entryId === pickedEntryId
-
-    // find corresponding DOM element for edited entry
-    const $editedEntry = document.querySelector(
-      `[data-entry-id="${editedEntryId}"]`
-    );
-    if ($editedEntry) {
-      // render new DOM tree
-      for (let i = 0; i < data.entries.length; i++) {
-        if (data.entries[i].entryId === editedEntryId) {
-          const $newRenderedEntry = renderEntry(data.entries[i]);
-          $list.replaceChild($newRenderedEntry, $editedEntry);
-        }
+        data.entries[i] = formData;
+        // render new DOM tree
+        const $editedEntry = document.querySelector(
+          `[data-entry-id="${editedEntryId}"]`
+        );
+        const $newRenderedEntry = renderEntry(data.entries[i]);
+        $list.replaceChild($newRenderedEntry, $editedEntry);
       }
     }
     // reset data.editing
@@ -90,7 +81,7 @@ function submitInfo(event) {
   // toggles "no entries" message
   toggleNoEntries();
 
-  // resets form values TESTING
+  // resets form values
   $entryForm.reset();
   // resets img
   $userCurrentImg.src = 'images/placeholder-image-square.jpg';
@@ -115,7 +106,6 @@ function renderEntry(entry) {
   $title.textContent = entry.title;
   const $icon = document.createElement('i');
   $icon.classList = 'fa-solid fa-pencil icon';
-  $icon.setAttribute('data-entry-id', entry.entryId);
   const $notes = document.createElement('p');
   $notes.className = 'entry-notes';
   $notes.textContent = entry.notes;
@@ -133,6 +123,22 @@ function renderEntry(entry) {
   $list.appendChild($listItem);
   return $listItem;
 }
+
+// adds event listener to ul in entries view pencil icon that viewSwaps
+$list.addEventListener('click', function (event) {
+  if (event.target.classList.contains('icon')) {
+    // change to entry-form view
+    viewSwap('entry-form');
+    // conditionally assigns data.entries values to data.editing
+    editingLoop();
+    // pre-populates form with existing values entered by user
+    formEditing();
+    // changes form title to read "edit entry"
+    updateTitle();
+    // toggles delete button
+    toggleDelete();
+  }
+});
 
 // looping function for renderEntry function - iterates nextEntryId
 function arrayLoop(array) {
@@ -156,7 +162,7 @@ function toggleNoEntries(event) {
 // function to reset title to be utilized inside submitInfo function
 function updateTitleToNewEntry() {
   const entryHeader = document.querySelector('.new-entry-header');
-  entryHeader.innerHTML = 'New Entry';
+  entryHeader.textContent = 'New Entry';
 }
 // event listener for submit function
 $entryForm.addEventListener('submit', submitInfo);
@@ -189,23 +195,12 @@ function viewSwap(viewName) {
   }
 }
 
-// adds event listener to ul in entries view pencil icon that viewSwaps
-document.addEventListener('click', function () {
-  if (event.target.classList.contains('icon')) {
-    // change to entry-form view
-    viewSwap('entry-form');
-    // conditionally assigns data.entries values to data.editing
-    editingLoop();
-    // pre-populates form with existing values entered by user
-    formEditing();
-    // changes form title to read "edit entry"
-    updateTitle();
-  }
-});
-
 // iterate through data.entries
 function editingLoop() {
-  const pickedEntryId = parseInt(event.target.getAttribute('data-entry-id'));
+  const listItemAncestor = event.target.closest('.user-entry');
+  const pickedEntryId = parseInt(
+    listItemAncestor.getAttribute('data-entry-id')
+  );
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === pickedEntryId) {
       data.editing = data.entries[i];
@@ -223,5 +218,49 @@ function formEditing() {
 // conditionally changes title when editing an entry
 function updateTitle() {
   const entryHeader = document.querySelector('.new-entry-header');
-  entryHeader.innerHTML = 'Edit Entry';
+  entryHeader.textContent = 'Edit Entry';
 }
+
+// toggles delete entry button
+function toggleDelete() {
+  const $deleteButton = document.querySelector('.delete-button');
+  $deleteButton.classList.remove('button-hide');
+}
+
+// toggles confirmation modal
+function toggleModal() {
+  $modal.classList.remove('button-hide');
+}
+// click event on delete button to active confirmation modal
+$deleteButton.addEventListener('click', toggleModal);
+
+// hides confirmation model when user clicks Cancel
+function hideModal() {
+  $modal.classList.add('button-hide');
+}
+
+// click event on cancel button
+$cancel.addEventListener('click', hideModal);
+
+// deletes entry when user clicks confirm button
+function deleteEntry() {
+  // need to target the specific entry and remove() it
+  const editedEntryId = data.editing.entryId;
+  // update data for edited entry
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === editedEntryId) {
+      data.entries.splice(i, 1);
+      // render new DOM tree
+      const $editedEntry = document.querySelector(
+        `[data-entry-id="${editedEntryId}"]`
+      );
+      $list.removeChild($editedEntry);
+    }
+  }
+  hideModal();
+  viewSwap('entries');
+  toggleNoEntries();
+}
+
+// click event on confirm button - deletes entry
+$confirm.addEventListener('click', deleteEntry);

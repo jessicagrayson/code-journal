@@ -84,8 +84,8 @@ img {
 
 .button-column {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .text-input {
@@ -94,6 +94,76 @@ img {
   height: 1.5rem;
   margin-bottom: 1rem;
   margin-top: 0.3rem;
+}
+
+.delete-button {
+  color: #dc2626;
+  border: none;
+  font-size: 1rem;
+  text-decoration: underline;
+  width: 8rem;
+}
+
+.button-hide {
+  visibility: hidden;
+}
+
+/* Delete modal window and button styles */
+.delete-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  /* flex styles */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 3%;
+}
+
+.pop-buttons {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+.cancel-button {
+  background-color: #b6b6b6;
+  width: 5rem;
+  padding: 0.4rem;
+  border-radius: 6%;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+}
+
+.confirm-button {
+  background-color: #dc2626;
+  color: #fff;
+  width: 5rem;
+  padding: 0.4rem;
+  border-radius: 6%;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+}
+
+.modal-text {
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 /* Data entries styles: */
