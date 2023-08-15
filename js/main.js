@@ -13,7 +13,7 @@ const $list = document.querySelector('.entries-list');
 const $deleteButton = document.querySelector('.delete-button');
 const $modal = document.querySelector('.delete-modal');
 const $cancel = document.querySelector('.cancel-button');
-// const $confirm = document.querySelector('.confirm-button');
+const $confirm = document.querySelector('.confirm-button');
 
 // function which sets image src:
 function setImgSrc(event) {
@@ -243,3 +243,24 @@ function hideModal() {
 $cancel.addEventListener('click', hideModal);
 
 // deletes entry when user clicks confirm button
+function deleteEntry() {
+  // need to target the specific entry and remove() it
+  const editedEntryId = data.editing.entryId;
+  // update data for edited entry
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === editedEntryId) {
+      data.entries.splice(i, 1);
+      // render new DOM tree
+      const $editedEntry = document.querySelector(
+        `[data-entry-id="${editedEntryId}"]`
+      );
+      $list.removeChild($editedEntry);
+    }
+  }
+  hideModal();
+  viewSwap('entries');
+  toggleNoEntries();
+}
+
+// click event on confirm button - deletes entry
+$confirm.addEventListener('click', deleteEntry);
