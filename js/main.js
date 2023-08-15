@@ -10,6 +10,7 @@ const $noEntryMessage = document.querySelector('.no-entry-message');
 const $entryView = document.querySelector('[data-view=entries]');
 const $formView = document.querySelector('[data-view=entry-form]');
 const $list = document.querySelector('.entries-list');
+const $deleteButton = document.querySelector('.delete-button');
 
 // function which sets image src:
 function setImgSrc(event) {
@@ -222,3 +223,11 @@ function toggleDelete() {
   const $deleteButton = document.querySelector('.delete-button');
   $deleteButton.classList.remove('button-hide');
 }
+
+// toggles confirmation modal
+function toggleModal() {
+  const $modal = document.querySelector('.delete-modal');
+  $modal.classList.remove('button-hide');
+}
+// click event on delete button to active confirmation modal
+$deleteButton.addEventListener('click', toggleModal);
