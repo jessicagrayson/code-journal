@@ -117,6 +117,7 @@ img {
   position: absolute;
   top: 50%;
   left: 8%;
+  z-index: 1;
 
   /* flex styles */
   display: flex;
@@ -248,3 +249,40 @@ img {
 .icon {
   color: #562b81;
 }
+
+/* dark mode classes */
+
+/* body {
+  background-color: #5b5b5b;
+}
+
+header {
+  background-color: #34293f;
+}
+
+.page-header,
+.nav-link {
+  color: #5f5f5f;
+}
+
+.text-input,
+.notes-field {
+  background-color: #5f5f5f;
+  border: none;
+}
+
+.delete-button {
+  background-color: #5b5b5b;
+  color: #572828;
+}
+
+.save-button {
+  background-color: #34293f;
+  color: #5f5f5f;
+  border: none;
+}
+
+#user-img {
+  filter: grayscale(95%);
+  filter: brightness(40%);
+} */
