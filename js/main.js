@@ -11,6 +11,9 @@ const $entryView = document.querySelector('[data-view=entries]');
 const $formView = document.querySelector('[data-view=entry-form]');
 const $list = document.querySelector('.entries-list');
 const $deleteButton = document.querySelector('.delete-button');
+const $modal = document.querySelector('.delete-modal');
+const $cancel = document.querySelector('.cancel-button');
+// const $confirm = document.querySelector('.confirm-button');
 
 // function which sets image src:
 function setImgSrc(event) {
@@ -226,8 +229,17 @@ function toggleDelete() {
 
 // toggles confirmation modal
 function toggleModal() {
-  const $modal = document.querySelector('.delete-modal');
   $modal.classList.remove('button-hide');
 }
 // click event on delete button to active confirmation modal
 $deleteButton.addEventListener('click', toggleModal);
+
+// hides confirmation model when user clicks Cancel
+function hideModal() {
+  $modal.classList.add('button-hide');
+}
+
+// click event on cancel button
+$cancel.addEventListener('click', hideModal);
+
+// deletes entry when user clicks confirm button
