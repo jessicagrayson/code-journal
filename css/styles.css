@@ -108,6 +108,40 @@ img {
   visibility: hidden;
 }
 
+/* Delete modal window and button styles */
+.delete-modal {
+  height: 8rem;
+  width: 20rem;
+  border-radius: 5%;
+  background-color: indianred;
+  position: absolute;
+  top: 35%;
+  left: 40%;
+}
+
+.cancel-button {
+  background-color: #b6b6b6;
+  width: 5rem;
+  padding: 0.4rem;
+  border-radius: 6%;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+}
+
+.confirm-button {
+  background-color: #dc2626;
+  color: #fff;
+  width: 5rem;
+  padding: 0.4rem;
+  border-radius: 6%;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+}
+
 /* Data entries styles: */
 
 .entry-row {
